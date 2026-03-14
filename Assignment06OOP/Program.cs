@@ -3,6 +3,7 @@ using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Reflection.PortableExecutable;
 using System.Security.Cryptography;
+using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Assignment06OOP
@@ -116,29 +117,29 @@ namespace Assignment06OOP
     #endregion
 
     #region Q04 Part01
-//a) What is a partial class?
-      //A partial class allows you to split a single class definition across multiple files — the compiler merges them into one class.
-//Why would a developer split Calculator into two files?
-      //To organize code better: for example, keep core logic in one file and logging or additional features in another.
-      //Makes large classes easier to maintain.
- //b) What is a partial method?
-      //A partial method is declared in one part of a partial class and optionally implemented in another part.
- //What happens if the OnCalculated() implementation in Calculator.Logging.cs is deleted — will the code still compile?
-      // yes the code will still compile.
+    //a) What is a partial class?
+    //A partial class allows you to split a single class definition across multiple files — the compiler merges them into one class.
+    //Why would a developer split Calculator into two files?
+    //To organize code better: for example, keep core logic in one file and logging or additional features in another.
+    //Makes large classes easier to maintain.
+    //b) What is a partial method?
+    //A partial method is declared in one part of a partial class and optionally implemented in another part.
+    //What happens if the OnCalculated() implementation in Calculator.Logging.cs is deleted — will the code still compile?
+    // yes the code will still compile.
 
- //Why?
-      //OnCalculated() is a partial method.
-      //Partial methods are optional: you can declare them in one part of a class and choose whether or not to implement them.
-      //If the implementation in Calculator.Logging.cs is deleted:
-      //The call to OnCalculated(LastResult) in Calculator.cs is ignored by the compiler.
-       //There’s no error because the method is optional.
- //c) What is an extension method? 
-       //An extension method lets you add new methods to an existing type without modifying its source code, without inheritance, and without recompiling.
+    //Why?
+    //OnCalculated() is a partial method.
+    //Partial methods are optional: you can declare them in one part of a class and choose whether or not to implement them.
+    //If the implementation in Calculator.Logging.cs is deleted:
+    //The call to OnCalculated(LastResult) in Calculator.cs is ignored by the compiler.
+    //There’s no error because the method is optional.
+    //c) What is an extension method? 
+    //An extension method lets you add new methods to an existing type without modifying its source code, without inheritance, and without recompiling.
     //What are the three rules for writing one?
-       // static class_ static method_this on 1st param
- //d) What will the following code print?
-       //Log: result = 20
-      //$20.00
+    // static class_ static method_this on 1st param
+    //d) What will the following code print?
+    //Log: result = 20
+    //$20.00
 
 
 
@@ -147,11 +148,42 @@ namespace Assignment06OOP
 
     #endregion
 
-    internal class Program
+    class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("Hello, World!");
+            
+            Console.WriteLine("=== Cinema Opened ===");
+            Console.WriteLine(" Projector ON\n");
+            Console.WriteLine("// Ticket t = new Ticket(\"Test\", 100);  // ERROR: Cannot create instance of abstract type 'Ticket'\n");
+
+            var t1 = new StandardTicket("Inception", 80, "A5");
+            var t2 = new VIPTicket("Avengers", 200, true, 50);
+            var t3 = new IMAXTicket("Dune", 130, true);
+
+            t1.Book();
+            t2.Book();
+            t3.Book();
+
+            var cinema = new Cinema();
+            cinema.AddTicket(t1);
+            cinema.AddTicket(t2);
+            cinema.AddTicket(t3);
+
+            cinema.PrintAllTickets();
+
+            Console.WriteLine("\n--- Polymorphism: Final Price per Ticket ---");
+            Ticket[] ticketArray = { t1, t2, t3 };
+            foreach (var t in ticketArray)
+                Console.WriteLine($"{t.GetType().Name} => Final Price: {t.FinalPrice():F2}");
+
+            Console.WriteLine("\n--- Extension Method: Receipt ---");
+            Console.WriteLine(t2.Receipt());
+
+            Console.WriteLine("\n--- Extension Method: Total Revenue ---");
+            Console.WriteLine($"Total Revenue: {ticketArray.TotalRevenue():F2}");
+
+            cinema.Close();
         }
     }
 }
