@@ -115,6 +115,38 @@ namespace Assignment06OOP
     //It will return Standby
     #endregion
 
+    #region Q04 Part01
+//a) What is a partial class?
+      //A partial class allows you to split a single class definition across multiple files — the compiler merges them into one class.
+//Why would a developer split Calculator into two files?
+      //To organize code better: for example, keep core logic in one file and logging or additional features in another.
+      //Makes large classes easier to maintain.
+ //b) What is a partial method?
+      //A partial method is declared in one part of a partial class and optionally implemented in another part.
+ //What happens if the OnCalculated() implementation in Calculator.Logging.cs is deleted — will the code still compile?
+      // yes the code will still compile.
+
+ //Why?
+      //OnCalculated() is a partial method.
+      //Partial methods are optional: you can declare them in one part of a class and choose whether or not to implement them.
+      //If the implementation in Calculator.Logging.cs is deleted:
+      //The call to OnCalculated(LastResult) in Calculator.cs is ignored by the compiler.
+       //There’s no error because the method is optional.
+ //c) What is an extension method? 
+       //An extension method lets you add new methods to an existing type without modifying its source code, without inheritance, and without recompiling.
+    //What are the three rules for writing one?
+       // static class_ static method_this on 1st param
+ //d) What will the following code print?
+       //Log: result = 20
+      //$20.00
+
+
+
+
+
+
+    #endregion
+
     internal class Program
     {
         static void Main(string[] args)
