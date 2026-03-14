@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Reflection.PortableExecutable;
+using System.Security.Cryptography;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Assignment06OOP
@@ -78,6 +80,41 @@ namespace Assignment06OOP
     // I will choose the interface when I want to define a contract that different classes must implement
     // or when I need multiple inheritance.
     #endregion
+
+    #region Q03 Part01
+    //a) Can you write: Appliance a = new Appliance("LG"); ?
+    //No
+    //Why or why not
+    //Appliance is an abstract class.
+    //Abstract classes cannot be instantiated directly.
+    //b) What is the difference between the three methods: PowerConsumption(), Status(), and Label()?
+    //PowerConsumption()
+
+    //abstract
+    //No implementation in Appliance; derived classes must implement it
+
+    //Status()
+    //virtual
+    // Has a default implementation("Standby"), but derived classes can override it
+
+    //Label()
+    //concrete(normal method)
+    //Fully implemented; returns Brand +PowerConsumption()
+
+    //Why did the designer make each one abstract, virtual, or concrete?
+    //abstract very appliance has power consumption,
+    //but it differs by type. Abstract forces derived classes to define it.
+    //
+    //virtual Most appliances can use "Standby" as default,
+    //but some may have a specific status like "Washing" for a washing machine.
+    //
+    //concreteThe logic of showing the label is
+    //the same for all appliances, no need to override.
+
+    //c) If you call Status() on a Toaster object, what will it return? Why?
+    //It will return Standby
+    #endregion
+
     internal class Program
     {
         static void Main(string[] args)
